@@ -198,7 +198,7 @@ public class StringUtils {
 		return string;
 	}
 
-	public String stripNewLines(String input) {
+	public static String stripNewLines(String input) {
 		if (isEmpty(input)) return input;
 		return input.replace("\n", " ");
 	}
