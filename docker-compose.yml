@@ -1,0 +1,21 @@
+services:
+  build:
+    image: maven:3.9.2-amazoncorretto-17-debian
+    volumes:
+      - .:/app
+    working_dir: /app
+    entrypoint: mvn package
+
+  test:
+    image: maven:3.9.2-amazoncorretto-17-debian
+    volumes:
+      - .:/app
+    working_dir: /app
+    entrypoint: mvn test
+
+  deploy:
+    image: maven:3.9.2-amazoncorretto-17-debian
+    volumes:
+      - .:/app
+    working_dir: /app
+    entrypoint: mvn deploy
