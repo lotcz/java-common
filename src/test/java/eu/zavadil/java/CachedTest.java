@@ -1,5 +1,6 @@
 package eu.zavadil.java;
 
+import eu.zavadil.java.caching.Cached;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

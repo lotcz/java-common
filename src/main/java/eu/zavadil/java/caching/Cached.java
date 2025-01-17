@@ -1,4 +1,4 @@
-package eu.zavadil.java;
+package eu.zavadil.java.caching;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -19,16 +19,25 @@ public class Cached<T> extends Lazy<T> {
 		this.lifetime = cacheLifetime;
 	}
 
+	public boolean isExpired() {
+		return this.cacheExpires == null || this.cacheExpires.isBefore(Instant.now());
+	}
+
+	@Override
+	public void setCache(T value) {
+		super.setCache(value);
+		this.cacheExpires = (value == null) ? null : Instant.now().plus(this.lifetime);
+	}
+
 	@Override
 	public synchronized T get() {
-		if (this.cacheExpires == null || this.cacheExpires.isBefore(Instant.now())) {
-			this.cache = null;
+		if (this.isExpired()) {
+			this.setCache(null);
 		}
-		if (this.cache == null) {
-			this.cache = this.supplier.get();
-			this.cacheExpires = Instant.now().plus(this.lifetime);
+		if (this.getCache() == null) {
+			this.setCache(this.supplier.get());
 		}
-		return this.cache;
+		return this.getCache();
 	}
 
 }

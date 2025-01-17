@@ -1,6 +1,6 @@
 package eu.zavadil.java.util;
 
-import eu.zavadil.java.Lazy;
+import eu.zavadil.java.caching.Lazy;
 
 import java.text.Normalizer;
 import java.util.*;
