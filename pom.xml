@@ -7,7 +7,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>eu.zavadil.java</groupId>
 	<artifactId>java-common</artifactId>
-	<version>1.1.2</version>
+	<version>1.1.6</version>
 	<name>Java Common</name>
 	<description>Library with common shared helpers, utils etc.</description>
 

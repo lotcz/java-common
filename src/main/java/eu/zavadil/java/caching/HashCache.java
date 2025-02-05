@@ -1,7 +1,6 @@
 package eu.zavadil.java.caching;
 
 import java.time.Duration;
-import java.time.Instant;
 import java.util.HashMap;
 
 public abstract class HashCache<TKey, TVal> {
@@ -12,13 +11,13 @@ public abstract class HashCache<TKey, TVal> {
 
 	private static final Duration DEFAULT_SWEEP_INTERVAL = Duration.ofMinutes(1);
 
-	private final int maxItems;
+	protected final int maxItems;
 
-	private final Duration maxAge;
+	protected final Duration maxAge;
 
-	private final Duration sweepInterval;
+	protected final Duration sweepInterval;
 
-	private final HashMap<TKey, Cached<TVal>> cache = new HashMap<>();
+	protected final HashMap<TKey, Cached<TVal>> cache = new HashMap<>();
 
 	public HashCache(int maxItems, Duration maxAge, Duration sweepInterval) {
 		this.maxItems = maxItems;
