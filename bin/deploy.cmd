@@ -1,1 +1,1 @@
-java mvn install
+.\mvnw install

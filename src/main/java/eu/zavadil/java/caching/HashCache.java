@@ -74,4 +74,11 @@ public abstract class HashCache<TKey, TVal> {
 	public void reset() {
 		this.cache.clear();
 	}
+
+	public HashCacheStats getStats() {
+		return new HashCacheStats(
+			this.cache.size(),
+			this.maxItems
+		);
+	}
 }
