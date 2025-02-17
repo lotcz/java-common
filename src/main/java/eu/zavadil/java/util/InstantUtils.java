@@ -2,6 +2,7 @@ package eu.zavadil.java.util;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
@@ -61,6 +62,17 @@ public abstract class InstantUtils {
 	public static boolean isValidIsoString(String value) {
 		if (StringUtils.isEmpty(value)) return false;
 		return InstantUtils.safeParseIso(value) != null;
+	}
+
+	public static Instant atStartOfDay(LocalDate value) {
+		if (value == null) return null;
+		return value.atStartOfDay(ZoneId.systemDefault()).toInstant();
+	}
+
+	public static Instant atEndOfDay(LocalDate value) {
+		Instant atStart = InstantUtils.atStartOfDay(value);
+		if (value == null) return null;
+		return atStart.plus(Duration.ofHours(24)).minus(Duration.ofMillis(1));
 	}
 
 	/**

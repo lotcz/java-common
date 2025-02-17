@@ -115,6 +115,20 @@ public class StringUtils {
 		return list;
 	}
 
+	public static boolean safeStartsWith(String input, String start) {
+		if (isEmpty(input) || isEmpty(start)) {
+			return false;
+		}
+		return input.startsWith(start);
+	}
+
+	public static boolean safeEndsWith(String input, String end) {
+		if (isEmpty(input) || isEmpty(end)) {
+			return false;
+		}
+		return input.endsWith(end);
+	}
+
 	/**
 	 * Return unformatted raw pattern when there is formatting exception.
 	 *

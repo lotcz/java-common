@@ -12,6 +12,8 @@ public interface SmartQueue<T> {
 
 	int getLoaded();
 
+	int getProcessed();
+
 	boolean isLoading();
 
 	void reset();

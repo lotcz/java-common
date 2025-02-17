@@ -10,6 +10,7 @@ public interface SmartQueueProcessor<T> {
 		return new SmartQueueProcessorStats(
 			this.getQueue().getRemaining(),
 			this.getQueue().getLoaded(),
+			this.getQueue().getProcessed(),
 			this.getState()
 		);
 	}

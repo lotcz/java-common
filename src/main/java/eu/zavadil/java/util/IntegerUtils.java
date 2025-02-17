@@ -31,6 +31,7 @@ public class IntegerUtils {
 	private static final Pattern numericPattern = Pattern.compile("\\d+");
 
 	public static Optional<Integer> extractInteger(String str) {
+		if (StringUtils.isEmpty(StringUtils.safeTrim(str))) return Optional.empty();
 		Matcher matcher = numericPattern.matcher(str);
 		if (!matcher.find()) {
 			return Optional.empty();
