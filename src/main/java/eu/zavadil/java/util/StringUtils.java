@@ -21,17 +21,30 @@ public class StringUtils {
 		return str == null || str.isEmpty();
 	}
 
+	public static boolean isBlank(String str) {
+		return isEmpty(safeTrim(str));
+	}
+
 	public static boolean notEmpty(String str) {
 		return !StringUtils.isEmpty(str);
+	}
+
+	public static boolean notBlank(String str) {
+		return !StringUtils.isEmpty(StringUtils.safeTrim(str));
 	}
 
 	public static String emptyToNull(String str) {
 		return StringUtils.isEmpty(str) ? null : str;
 	}
 
+	public static String blankToNull(String str) {
+		return StringUtils.isBlank(str) ? null : str;
+	}
+
 	public static String nullToEmpty(String str) {
 		return str == null ? EMPTY_STRING : str;
 	}
+
 
 	public static String safeSubstr(String str, int start, int length) {
 		if (str == null) return EMPTY_STRING;
@@ -142,6 +155,11 @@ public class StringUtils {
 		} catch (Exception e) {
 			return pattern;
 		}
+	}
+
+	public static String safeReplace(String text, String needle, String replacement) {
+		if (StringUtils.isEmpty(needle) || StringUtils.isEmpty(text)) return text;
+		return text.replace(needle, replacement);
 	}
 
 	/**

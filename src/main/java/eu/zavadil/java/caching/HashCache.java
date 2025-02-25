@@ -52,19 +52,20 @@ public abstract class HashCache<TKey, TVal> {
 		return this.obtainCached(key).get();
 	}
 
-	public void set(TKey key, TVal val) {
+	public TVal set(TKey key, TVal val) {
 		if (key == null) {
 			TVal saved = this.save(val);
 			key = this.extractKey(saved);
-			this.obtainCached(key).setCache(val);
+			this.obtainCached(key).setCache(saved);
+			return saved;
 		} else {
 			this.obtainCached(key).setCache(val);
-			this.save(val);
+			return this.save(val);
 		}
 	}
 
-	public void set(TVal val) {
-		this.set(this.extractKey(val), val);
+	public TVal set(TVal val) {
+		return this.set(this.extractKey(val), val);
 	}
 
 	public void reset(TKey key) {

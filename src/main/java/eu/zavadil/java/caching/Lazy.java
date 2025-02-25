@@ -31,4 +31,7 @@ public class Lazy<T> implements Supplier<T> {
 		this.cache = value;
 	}
 
+	public void reset() {
+		this.setCache(null);
+	}
 }
