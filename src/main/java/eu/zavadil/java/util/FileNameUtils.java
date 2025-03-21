@@ -27,4 +27,11 @@ public class FileNameUtils {
 		final int i = fileName.lastIndexOf('.');
 		return i > 0 ? fileName.substring(0, i) : fileName;
 	}
+
+	public static String slugify(String name) {
+		return StringUtils.safeTrim(
+			StringUtils.safeReplace(name, "_", "-")
+		).replaceAll("\\W+", "-");
+	}
+
 }
