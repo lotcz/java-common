@@ -8,9 +8,9 @@ public interface SmartQueueProcessor<T> {
 
 	default SmartQueueProcessorStats getStats() {
 		return new SmartQueueProcessorStats(
-			this.getQueue().getRemaining(),
+			this.getQueue().remaining(),
 			this.getQueue().getLoaded(),
-			this.getQueue().getProcessed(),
+			this.getQueue().processed(),
 			this.getState()
 		);
 	}

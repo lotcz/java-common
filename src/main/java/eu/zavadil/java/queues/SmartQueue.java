@@ -1,20 +1,13 @@
 package eu.zavadil.java.queues;
 
-public interface SmartQueue<T> {
+import eu.zavadil.java.iterators.SmartIterator;
 
-	T next();
-
-	default boolean hasNext() {
-		return this.getRemaining() > 0;
-	}
-
-	long getRemaining();
+public interface SmartQueue<T> extends SmartIterator<T> {
 
 	int getLoaded();
-
-	int getProcessed();
 
 	boolean isLoading();
 
 	void reset();
+
 }

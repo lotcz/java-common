@@ -14,9 +14,9 @@ public class SmartQueueProcessorStats {
 		return this.loaded;
 	}
 
-	private final int processed;
+	private final long processed;
 
-	public int getProcessed() {
+	public long getProcessed() {
 		return this.processed;
 	}
 
@@ -26,7 +26,7 @@ public class SmartQueueProcessorStats {
 		return this.state;
 	}
 
-	public SmartQueueProcessorStats(long remaining, int loaded, int processed, SmartQueueProcessorState state) {
+	public SmartQueueProcessorStats(long remaining, int loaded, long processed, SmartQueueProcessorState state) {
 		this.remaining = remaining;
 		this.loaded = loaded;
 		this.processed = processed;
