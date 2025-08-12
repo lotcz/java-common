@@ -3,6 +3,7 @@ package eu.zavadil.java.util;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public abstract class DateUtils {
@@ -66,5 +67,20 @@ public abstract class DateUtils {
 			if (val != null) return val;
 		}
 		return defaultValue;
+	}
+
+	public static Instant localDateToInstant(LocalDate localDate) {
+		if (localDate == null) return null;
+		return localDate.atStartOfDay().atOffset(ZoneOffset.UTC).toInstant();
+	}
+
+	public static String formatToISO(Instant instant) {
+		if (instant == null) return "";
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSX");
+		return instant.atOffset(ZoneOffset.UTC).format(formatter);
+	}
+
+	public static String formatToISO(LocalDate localDate) {
+		return formatToISO(localDateToInstant(localDate));
 	}
 }

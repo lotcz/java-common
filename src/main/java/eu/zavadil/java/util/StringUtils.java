@@ -77,6 +77,11 @@ public class StringUtils {
 		return str.toUpperCase();
 	}
 
+	public static String safeCapitalize(String str) {
+		if (StringUtils.isEmpty(str)) return EMPTY_STRING;
+		return str.substring(0, 1).toUpperCase().concat(str.substring(1));
+	}
+
 	/**
 	 * Safely compare two strings - one or both can be null and no exception is thrown
 	 * @param s1

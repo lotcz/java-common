@@ -1,9 +1,6 @@
 package eu.zavadil.java.util;
 
-import java.time.Duration;
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 
 public abstract class InstantUtils {
@@ -86,5 +83,9 @@ public abstract class InstantUtils {
 			if (val != null) return val;
 		}
 		return defaultValue;
+	}
+
+	Instant localDateToInstant(LocalDate localDate) {
+		return DateUtils.localDateToInstant(localDate);
 	}
 }
