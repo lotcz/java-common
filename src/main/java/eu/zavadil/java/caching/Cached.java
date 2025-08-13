@@ -6,7 +6,7 @@ import java.util.function.Supplier;
 
 /**
  * Helper for caching values and expiring after defined amount of time.
- * Similar to Lazy<>, this will call provided supplier when value is missing, but also when it is expired.
+ * Similar to Lazy<>, but this will call provided supplier not only when value is missing, but also when it is expired.
  */
 public class Cached<T> extends Lazy<T> {
 
