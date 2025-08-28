@@ -2,13 +2,14 @@ package eu.zavadil.java.util;
 
 import java.text.CharacterIterator;
 import java.text.StringCharacterIterator;
+import java.util.Locale;
 
 /**
  * From https://programming.guide/java/formatting-byte-size-to-human-readable-format.html
  */
 public class ByteSizeUtils {
 
-	public static String formatSi(long bytes) {
+	public static String formatSi(Locale locale, long bytes) {
 		if (-1000 < bytes && bytes < 1000) {
 			return bytes + " B";
 		}
@@ -17,10 +18,14 @@ public class ByteSizeUtils {
 			bytes /= 1000;
 			ci.next();
 		}
-		return String.format("%.1f %cB", bytes / 1000.0, ci.current());
+		return String.format(locale, "%.1f %cB", bytes / 1000.0, ci.current());
 	}
 
-	public static String format(long bytes) {
+	public static String formatSi(long bytes) {
+		return formatSi(Locale.getDefault(), bytes);
+	}
+
+	public static String format(Locale locale, long bytes) {
 		long absB = bytes == Long.MIN_VALUE ? Long.MAX_VALUE : Math.abs(bytes);
 		if (absB < 1024) {
 			return bytes + " B";
@@ -32,6 +37,10 @@ public class ByteSizeUtils {
 			ci.next();
 		}
 		value *= Long.signum(bytes);
-		return String.format("%.1f %ciB", value / 1024.0, ci.current());
+		return String.format(locale, "%.1f %ciB", value / 1024.0, ci.current());
+	}
+
+	public static String format(long bytes) {
+		return format(Locale.getDefault(), bytes);
 	}
 }

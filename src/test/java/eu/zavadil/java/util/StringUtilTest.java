@@ -43,4 +43,20 @@ public class StringUtilTest {
 		List<String> strings = List.of("Bender", "je", "buh", "a", "Karel", "taky");
 		Assertions.assertEquals(List.of("a", "Bender", "buh", "je", "Karel", "taky"), StringUtils.sort(strings));
 	}
+
+	@Test
+	public void testRemoveStart() {
+		String str = "Hello, World!";
+		Assertions.assertEquals("Hello, World!", StringUtils.removeStart(str, "Test"));
+		Assertions.assertEquals(", World!", StringUtils.removeStart(str, "Hello"));
+		Assertions.assertEquals("", StringUtils.removeStart(str, "Hello, World!"));
+	}
+
+	@Test
+	public void testRemoveEnd() {
+		String str = "Hello, World!";
+		Assertions.assertEquals("Hello, World!", StringUtils.removeEnd(str, "Test"));
+		Assertions.assertEquals("Hello, ", StringUtils.removeEnd(str, "World!"));
+		Assertions.assertEquals("", StringUtils.removeEnd(str, "Hello, World!"));
+	}
 }

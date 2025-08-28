@@ -147,6 +147,16 @@ public class StringUtils {
 		return input.endsWith(end);
 	}
 
+	public static String removeStart(String input, String start) {
+		if (safeStartsWith(input, start)) return input.substring(start.length(), input.length());
+		return input;
+	}
+
+	public static String removeEnd(String input, String end) {
+		if (safeEndsWith(input, end)) return input.substring(0, input.length() - end.length());
+		return input;
+	}
+
 	/**
 	 * Return unformatted raw pattern when there is formatting exception.
 	 *
@@ -237,7 +247,7 @@ public class StringUtils {
 
 	public static String stripNewLines(String input) {
 		if (isEmpty(input)) return input;
-		return input.replace("\n", " ");
+		return input.replace("\r\n", " ").replace("\n", " ");
 	}
 
 	/**
