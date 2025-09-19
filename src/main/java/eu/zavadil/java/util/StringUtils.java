@@ -250,6 +250,17 @@ public class StringUtils {
 		return input.replace("\r\n", " ").replace("\n", " ");
 	}
 
+	public static String linesToText(List<String> strings) {
+		return String.join("\r\n", strings.stream().map(StringUtils::nullToEmpty).toList());
+	}
+
+	public static List<String> textToLines(String text) {
+		if (StringUtils.isBlank(text)) {
+			return List.of();
+		}
+		return Arrays.asList(text.split("\\R"));
+	}
+
 	/**
 	 * Generates a random string
 	 */
