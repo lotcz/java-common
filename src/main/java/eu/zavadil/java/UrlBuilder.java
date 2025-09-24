@@ -7,6 +7,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class UrlBuilder {
 
@@ -118,12 +119,12 @@ public class UrlBuilder {
 		return URLDecoder.decode(str, StandardCharsets.UTF_8);
 	}
 
-	private String getPathString() {
+	public String getPathString() {
 		String strPath = String.join("/", this.path);
 		return this.trailingSlash ? strPath + "/" : strPath;
 	}
 
-	private String getQueryString() {
+	public String getQueryString() {
 		return String.join(
 			"&",
 			this.query
@@ -138,6 +139,10 @@ public class UrlBuilder {
 				)
 				.toList()
 		);
+	}
+
+	public Map<String, String> getQueryParams() {
+		return this.query;
 	}
 
 	public String buildAsString() {
