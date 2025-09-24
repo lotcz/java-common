@@ -4,6 +4,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
+import java.util.zip.CRC32;
 
 public class HashUtils {
 
@@ -37,4 +38,11 @@ public class HashUtils {
 		return HashUtils.verify(original, hashed, "MD5");
 	}
 
+	public static String crc32Hex(String input) {
+		CRC32 crc = new CRC32();
+		byte[] bytes = input.getBytes(java.nio.charset.StandardCharsets.UTF_8);
+		crc.update(bytes, 0, bytes.length);
+		long checksum = crc.getValue();
+		return Long.toHexString(checksum);
+	}
 }
