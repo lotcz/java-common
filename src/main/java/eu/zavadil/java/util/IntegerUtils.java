@@ -48,4 +48,12 @@ public class IntegerUtils {
 		return a.equals(b);
 	}
 
+	public static boolean isEven(int n) {
+		return (n & 1) == 0;
+	}
+
+	public static boolean isOdd(int n) {
+		return !isEven(n);
+	}
+
 }
