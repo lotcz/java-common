@@ -3,8 +3,6 @@ package eu.zavadil.java.util;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
 public class FileNameUtilTest {
 
 	@Test
@@ -12,7 +10,7 @@ public class FileNameUtilTest {
 		String fileNull = null;
 		String file0 = "";
 		String file1 = "file1.txt";
-		String file2 = "C:\\test\\file2.txt";
+		String file2 = "C:/test/file2.txt";
 		String file3 = "/test/file3.tnt";
 
 		Assertions.assertEquals("", FileNameUtils.extractFileName(fileNull));
@@ -26,7 +24,5 @@ public class FileNameUtilTest {
 		Assertions.assertEquals("txt", FileNameUtils.extractExtension(file1));
 		Assertions.assertEquals("txt", FileNameUtils.extractExtension(file2));
 		Assertions.assertEquals("tnt", FileNameUtils.extractExtension(file3));
-
 	}
-
 }

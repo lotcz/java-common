@@ -71,9 +71,6 @@ public abstract class HashCache<TKey, TVal> {
 	}
 
 	public HashCacheStats getStats() {
-		return new HashCacheStats(
-			this.cache.size(),
-			this.maxItems
-		);
+		return new HashCacheStats(this.cache.size(), this.maxItems);
 	}
 }

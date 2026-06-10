@@ -1,7 +1,6 @@
 package eu.zavadil.java.util;
 
 import eu.zavadil.java.caching.Lazy;
-
 import java.text.Normalizer;
 import java.util.*;
 import java.util.regex.Pattern;
@@ -14,8 +13,6 @@ import java.util.regex.Pattern;
 public class StringUtils {
 
 	public static final String EMPTY_STRING = "";
-
-	private static final Lazy<Random> randomGenerator = new Lazy<>(Random::new);
 
 	public static boolean isEmpty(String str) {
 		return str == null || str.isEmpty();
@@ -44,7 +41,6 @@ public class StringUtils {
 	public static String nullToEmpty(String str) {
 		return str == null ? EMPTY_STRING : str;
 	}
-
 
 	public static String safeSubstr(String str, int start, int length) {
 		if (str == null) return EMPTY_STRING;
@@ -184,7 +180,7 @@ public class StringUtils {
 	 * @return
 	 */
 	public static String selectNonEmpty(String defaultValue, String... strings) {
-		for (String str: strings) {
+		for (String str : strings) {
 			if (StringUtils.notEmpty(str)) return str;
 		}
 		return defaultValue;
@@ -219,7 +215,10 @@ public class StringUtils {
 		str = str.replaceAll("[\u201D%:.,)&(\\]\\[}{+-]", separator).trim();
 		str = str.replaceAll(separator + "+", separator).trim();
 		while (str.contains(separator)) {
-			String afterReplace = str.replaceFirst(separator + "[a-zA-Z0-9]", String.valueOf(Character.toUpperCase(str.charAt(str.indexOf(separator) + 1))));
+			String afterReplace = str.replaceFirst(
+				separator + "[a-zA-Z0-9]",
+				String.valueOf(Character.toUpperCase(str.charAt(str.indexOf(separator) + 1)))
+			);
 			if (afterReplace.equals(str)) {
 				return str;
 			} else {
@@ -261,31 +260,62 @@ public class StringUtils {
 		return Arrays.asList(text.split("\\R"));
 	}
 
-	/**
-	 * Generates a random string
-	 */
-	public static String random(int length) {
-		int leftLimit = 97; // letter 'a'
-		int rightLimit = 122; // letter 'z'
-
-		return randomGenerator
-			.get()
-			.ints(leftLimit, rightLimit + 1)
-			.limit(length)
-			.collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
-			.toString();
-	}
-
-	/**
-	 * Generates a random string
-	 */
-	public static String random(int minLength, int maxLength) {
-		return random(randomGenerator.get().nextInt(minLength, maxLength + 1));
-	}
-
 	public static List<String> sort(List<String> list) {
 		if (list == null || list.isEmpty()) return List.of();
 		return list.stream().sorted(Comparator.comparing(s -> StringUtils.safeLowerCase(s))).toList();
 	}
 
+	/* RANDOM */
+
+	private static final Lazy<Random> randomGenerator = new Lazy<>(Random::new);
+
+	private static final Lazy<List<Character>> allChars = new Lazy<>(StringUtils::buildAllChars);
+
+	/* Builds list of all characters for building random strings */
+	private static List<Character> buildAllChars() {
+		List<Character> list = new ArrayList<>();
+
+		char leftLimit = 48; // letter '0'
+		char rightLimit = 57; // letter '9'
+		for (char i = leftLimit; i <= rightLimit; i++) {
+			list.add(i);
+		}
+
+		leftLimit = 65; // letter 'A'
+		rightLimit = 90; // letter 'Z'
+		for (char i = leftLimit; i <= rightLimit; i++) {
+			list.add(i);
+		}
+
+		leftLimit = 97; // letter 'a'
+		rightLimit = 122; // letter 'z'
+		for (char i = leftLimit; i <= rightLimit; i++) {
+			list.add(i);
+		}
+
+		return list;
+	}
+
+	/**
+	 * Generates a random string of fixed length
+	 */
+	public static String random(int length) {
+		List<Character> chars = allChars.get();
+		int max = chars.size();
+
+		return StringUtils.randomGenerator
+			.get()
+			.ints(0, max)
+			.limit(length)
+			.map(i -> chars.get(i))
+			.collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+			.toString();
+	}
+
+	/**
+	 * Generates a random string of random length
+	 */
+	public static String random(int minLength, int maxLength) {
+		return StringUtils.random(randomGenerator.get().nextInt(minLength, maxLength + 1));
+	}
 }
